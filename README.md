@@ -22,3 +22,18 @@
             - Throws TypeError given null input
             - Throws TypeError given non-list input
             - Returns None for any invalid list lengths
+     
+    3. Added h_rolling(key, N) method
+        Parameters:
+            - key : string that is to be converted into a integer within the range(N)
+                + currently optmized to consist only of upper and lower case letters
+            - N : integer that represents the size of the hash table
+        
+        Returns:
+            - r : the hash position of string key in table of length N
+        
+        Error Behavior
+            - Returns None given None
+            - Throws TypeError given null input
+            - Throws TypeError given non-list input
+            - Returns None for any invalid list lengths
