@@ -1,6 +1,7 @@
 # Hash tables
 
-## hash_functions.py
+## Creation
+### hash_functions.py
 
     1. Created testing file test_hash_functions.py
         - Created tests for None input
@@ -55,7 +56,7 @@
             - Throws TypeError given non-list input
             - Returns None for any invalid list lengths
 
-## hash_tables.py
+### hash_tables.py
 
     1. Created testing file test_hash_tables.py
         - Created tests for incorrect type input
@@ -150,3 +151,73 @@
             - Throws Syntax Error given null input
             - Throws TypeError given incorrect input
             - Returns None given null function inputs
+
+## Experimentation
+
+### scatter.py
+
+    1. Created plots for visulaization of hash functions given random word inputs
+    
+    Using random word inputs:
+        
+        ascii function
+```
+python hash_functions.py --input_file rand_words.txt --function ascii | python scatter.py --output_file_name ascii_hash_function.png
+```
+
+![](ascii_hash_function.png)
+
+    rolling function
+```
+python hash_functions.py --input_file rand_words.txt --function rolling | python scatter.py --output_file_name rolling_hash_function.png
+```
+
+![](rolling_hash_function.png)
+
+    ascii_sq function
+
+```
+python hash_functions.py --input_file rand_words.txt --function asciisq | python scatter.py --output_file_name asciisq_hash_function.png
+```
+
+![](asciisq_hash_function.png)
+
+Using non-random word inputs:
+        
+    ascii function
+```
+python hash_functions.py --input_file non_rand_words.txt --function ascii | python scatter.py --output_file_name ascii_hash_function_non.png
+```
+
+![](ascii_hash_function_non.png)
+
+    rolling function
+```
+python hash_functions.py --input_file non_rand_words.txt --function rolling | python scatter.py --output_file_name rolling_hash_function_non.png
+```
+
+![](rolling_hash_function_non.png)
+
+    ascii_sq function
+
+```
+python hash_functions.py --input_file non_rand_words.txt --function asciisq | python scatter.py --output_file_name asciisq_hash_function_non.png
+```
+
+![](asciisq_hash_function_non.png)
+
+Discussion:
+
+We can see that that ascii function returns linear patterns when given random words, the other two output very random hashes. Given non-random inputs, however, both ascii methods output predictable patterns. The rolling function is far superior given non-random strings.
+
+
+
+```
+for M in $( seq  1000 1000 10000 ); do
+    python hash_table.py 10000 rolling linear rand_words.txt $M >  rolling_linear_rand.$M.txt
+done
+
+grep insert rolling_linear_rand.*.txt | cut -d " " -f2,3 | python scatter.py rolling_insert_time.png "Load factor" "Insert time"
+```
+
+![](rolling_insert_time.png)
