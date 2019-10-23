@@ -292,5 +292,5 @@ Quadratic Probe Search
 
 Discussion:
 
-It can be seen that the Linear and Quadratic Probe collision resolutions behave very similarly with relatively constant insert and search times until a load factor close to 1 is attained.
+It can be seen that the Linear and Quadratic Probe collision resolutions behave similarly with relatively constant insert and search times until a load factor close to 1 is attained.
 However, the chained hash resolution strategy displays relatively constant insert and search times that varied independent of load factor.
