@@ -12,6 +12,7 @@ import hash_functions
 import string
 import random as rdm
 
+
 # Testing none input
 class TestNone(unittest.TestCase):
 
@@ -42,6 +43,7 @@ class TestNone(unittest.TestCase):
     def test_ascii_sq_key_none(self):
         self.assertEqual(hash_functions.h_ascii_sq(None, 5), None)
 
+
 # Testing null input
 class TestNullColumn(unittest.TestCase):
 
@@ -53,6 +55,7 @@ class TestNullColumn(unittest.TestCase):
 
     def test_ascii_sq_null(self):
         self.assertRaises(TypeError, lambda: hash_functions.h_ascii_sq())
+
 
 # Testing incorrect input types
 class TestIncorrectInput(unittest.TestCase):
@@ -72,7 +75,8 @@ class TestIncorrectInput(unittest.TestCase):
 
     def test_ascii_length_non_int(self):
         self.assertRaises(TypeError,
-                          lambda: hash_functions.h_ascii('string', float(420.69)))
+                          lambda: hash_functions.h_ascii(
+                              'string', float(420.69)))
 
         self.assertRaises(TypeError,
                           lambda: hash_functions.h_ascii('string', 'string'))
@@ -98,7 +102,8 @@ class TestIncorrectInput(unittest.TestCase):
 
     def test_rolling_length_non_int(self):
         self.assertRaises(TypeError,
-                          lambda: hash_functions.h_rolling('string', float(420.69)))
+                          lambda: hash_functions.h_rolling(
+                              'string', float(420.69)))
 
         self.assertRaises(TypeError,
                           lambda: hash_functions.h_rolling('string', 'string'))
@@ -124,16 +129,19 @@ class TestIncorrectInput(unittest.TestCase):
 
     def test_ascii_sq_length_non_int(self):
         self.assertRaises(TypeError,
-                          lambda: hash_functions.h_ascii_sq('string', float(420.69)))
+                          lambda: hash_functions.h_ascii_sq(
+                              'string', float(420.69)))
 
         self.assertRaises(TypeError,
-                          lambda: hash_functions.h_ascii_sq('string', 'string'))
+                          lambda: hash_functions.h_ascii_sq(
+                              'string', 'string'))
 
         self.assertRaises(TypeError,
                           lambda: hash_functions.h_ascii_sq('string', True))
 
         self.assertRaises(TypeError,
                           lambda: hash_functions.h_ascii_sq('string', [9, 10]))
+
 
 # Testing bad table length input
 class TestBadTableLength(unittest.TestCase):
@@ -155,6 +163,7 @@ class TestBadTableLength(unittest.TestCase):
 
     def test_ascii_sq_neg_table(self):
         self.assertEqual(hash_functions.h_ascii_sq('string', -42), None)
+
 
 # Testing variable cases
 class TestVariable(unittest.TestCase):
@@ -190,7 +199,8 @@ class TestVariable(unittest.TestCase):
                     sum_ += ord(test_key[i]) * p ** i
                 sum_ = sum_ % m
                 r = sum_ % test_length
-            self.assertEqual(hash_functions.h_rolling(test_key, test_length), r)
+            self.assertEqual(hash_functions.h_rolling(
+                test_key, test_length), r)
 
     def test_ascii_sq(self):
         letters = string.ascii_lowercase + string.ascii_uppercase
@@ -204,7 +214,9 @@ class TestVariable(unittest.TestCase):
             for k in range(len(test_key)):
                 sum_sq += ord(test_key[k]) ** 2
             r = sum_sq % test_length
-            self.assertEqual(hash_functions.h_ascii_sq(test_key, test_length), r)
+            self.assertEqual(hash_functions.h_ascii_sq(
+                test_key, test_length), r)
+
 
 if __name__ == '__main__':
     unittest.main()
