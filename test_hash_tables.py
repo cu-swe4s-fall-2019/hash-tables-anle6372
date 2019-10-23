@@ -13,6 +13,7 @@ import hash_tables as ht
 import string
 import random as rdm
 
+
 # Testing bad input
 class TestBadInput(unittest.TestCase):
 
@@ -23,10 +24,14 @@ class TestBadInput(unittest.TestCase):
         self.assertRaises(TypeError, lambda: ht.LinearProbe(5, float(420.69)))
 
     def test_linear_probe_bad_size(self):
-        self.assertRaises(TypeError, lambda: ht.LinearProbe(None, hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.LinearProbe('string', hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.LinearProbe(sum, hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.LinearProbe(float(420.69), hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.LinearProbe(None, hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.LinearProbe('string', hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.LinearProbe(sum, hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.LinearProbe(float(420.69), hf.h_ascii))
 
     def test_chained_hash_bad_fxn(self):
         self.assertRaises(TypeError, lambda: ht.ChainedHash(5, None))
@@ -36,21 +41,29 @@ class TestBadInput(unittest.TestCase):
 
     def test_chained_hash_bad_size(self):
         self.assertRaises(TypeError, lambda: ht.ChainedHash(None, hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.ChainedHash('string', hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.ChainedHash('string', hf.h_ascii))
         self.assertRaises(TypeError, lambda: ht.ChainedHash(sum, hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.ChainedHash(float(420.69), hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.ChainedHash(float(420.69), hf.h_ascii))
 
     def test_quadratic_probe_bad_fxn(self):
         self.assertRaises(TypeError, lambda: ht.QuadraticProbe(5, None))
         self.assertRaises(TypeError, lambda: ht.QuadraticProbe(5, 'string'))
         self.assertRaises(TypeError, lambda: ht.QuadraticProbe(5, int(5)))
-        self.assertRaises(TypeError, lambda: ht.QuadraticProbe(5, float(420.69)))
+        self.assertRaises(TypeError,
+                          lambda: ht.QuadraticProbe(5, float(420.69)))
 
     def test_quadratic_probe_bad_size(self):
-        self.assertRaises(TypeError, lambda: ht.QuadraticProbe(None, hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.QuadraticProbe('string', hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.QuadraticProbe(sum, hf.h_ascii))
-        self.assertRaises(TypeError, lambda: ht.QuadraticProbe(float(420.69), hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.QuadraticProbe(None, hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.QuadraticProbe('string', hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.QuadraticProbe(sum, hf.h_ascii))
+        self.assertRaises(TypeError,
+                          lambda: ht.QuadraticProbe(float(420.69), hf.h_ascii))
+
 
 # Testing None function input
 class TestNoneFxnInput(unittest.TestCase):
@@ -79,6 +92,7 @@ class TestNoneFxnInput(unittest.TestCase):
         test_table = ht.QuadraticProbe(5, hf.h_ascii)
         self.assertEqual(None, test_table.search(None))
 
+
 # Testing linear probing functionality
 class TestVariableAdditionSearchLP(unittest.TestCase):
 
@@ -93,7 +107,8 @@ class TestVariableAdditionSearchLP(unittest.TestCase):
                 test_key += letter
             test_table = ht.LinearProbe(test_length, hf.h_ascii)
             test_table.add(test_key, test_value)
-            self.assertEqual((test_key, test_value), test_table.T[hf.h_ascii(test_key, test_length)])
+            self.assertEqual((test_key, test_value),
+                             test_table.T[hf.h_ascii(test_key, test_length)])
             self.assertEqual(test_value, test_table.search(test_key))
 
     def test_linear_probe_rolling_variable_add_search(self):
@@ -107,7 +122,8 @@ class TestVariableAdditionSearchLP(unittest.TestCase):
                 test_key += letter
             test_table = ht.LinearProbe(test_length, hf.h_rolling)
             test_table.add(test_key, test_value)
-            self.assertEqual((test_key, test_value), test_table.T[hf.h_rolling(test_key, test_length)])
+            self.assertEqual((test_key, test_value),
+                             test_table.T[hf.h_rolling(test_key, test_length)])
             self.assertEqual(test_value, test_table.search(test_key))
 
     def test_linear_probe_ascii_collision(self):
@@ -123,7 +139,9 @@ class TestVariableAdditionSearchLP(unittest.TestCase):
             if test_table.N - 1 == hf.h_ascii(test_key, test_length):
                 self.assertEqual((test_key, test_value2), test_table.T[0])
                 continue
-            self.assertEqual((test_key, test_value2), test_table.T[hf.h_ascii(test_key, test_length) + 1])
+            self.assertEqual((test_key, test_value2),
+                             test_table.T[hf.h_ascii(
+                                 test_key, test_length) + 1])
 
     def test_linear_probe_rolling_collision(self):
         for i in range(100):
@@ -138,7 +156,10 @@ class TestVariableAdditionSearchLP(unittest.TestCase):
             if test_table.N - 1 == hf.h_rolling(test_key, test_length):
                 self.assertEqual((test_key, test_value2), test_table.T[0])
                 continue
-            self.assertEqual((test_key, test_value2), test_table.T[hf.h_rolling(test_key, test_length) + 1])
+            self.assertEqual((test_key, test_value2),
+                             test_table.T[
+                                 hf.h_rolling(test_key, test_length) + 1])
+
 
 # Testing chained hash functionality
 class TestVariableAdditionSearchCH(unittest.TestCase):
@@ -154,7 +175,9 @@ class TestVariableAdditionSearchCH(unittest.TestCase):
                 test_key += letter
             test_table = ht.ChainedHash(test_length, hf.h_ascii)
             test_table.add(test_key, test_value)
-            self.assertEqual((test_key, test_value), test_table.T[hf.h_ascii(test_key, test_length)][0])
+            self.assertEqual((test_key, test_value),
+                             test_table.T[
+                                 hf.h_ascii(test_key, test_length)][0])
             self.assertEqual(test_value, test_table.search(test_key))
 
     def test_chained_hash_rolling_variable_add_search(self):
@@ -168,7 +191,9 @@ class TestVariableAdditionSearchCH(unittest.TestCase):
                 test_key += letter
             test_table = ht.ChainedHash(test_length, hf.h_rolling)
             test_table.add(test_key, test_value)
-            self.assertEqual((test_key, test_value), test_table.T[hf.h_rolling(test_key, test_length)][0])
+            self.assertEqual((test_key, test_value),
+                             test_table.T[
+                                 hf.h_rolling(test_key, test_length)][0])
             self.assertEqual(test_value, test_table.search(test_key))
 
     def test_chained_hash_ascii_collision(self):
@@ -180,8 +205,11 @@ class TestVariableAdditionSearchCH(unittest.TestCase):
             test_table = ht.ChainedHash(test_length, hf.h_ascii)
             test_table.add(test_key, test_value1)
             test_table.add(test_key, test_value2)
-            self.assertEqual(test_value1, test_table.search(test_key))
-            self.assertEqual((test_key, test_value2), test_table.T[hf.h_ascii(test_key, test_length)][1])
+            self.assertEqual(test_value1,
+                             test_table.search(test_key))
+            self.assertEqual((test_key, test_value2),
+                             test_table.T[
+                                 hf.h_ascii(test_key, test_length)][1])
 
     def test_chained_hash_rolling_collision(self):
         for i in range(100):
@@ -192,8 +220,12 @@ class TestVariableAdditionSearchCH(unittest.TestCase):
             test_table = ht.ChainedHash(test_length, hf.h_rolling)
             test_table.add(test_key, test_value1)
             test_table.add(test_key, test_value2)
-            self.assertEqual(test_value1, test_table.search(test_key))
-            self.assertEqual((test_key, test_value2), test_table.T[hf.h_rolling(test_key, test_length)][1])
+            self.assertEqual(
+                test_value1, test_table.search(test_key))
+            self.assertEqual((test_key, test_value2),
+                             test_table.T[
+                                 hf.h_rolling(test_key, test_length)][1])
+
 
 # Testing quadratic probing functionality
 class TestVariableAdditionSearchQP(unittest.TestCase):
@@ -209,8 +241,11 @@ class TestVariableAdditionSearchQP(unittest.TestCase):
                 test_key += letter
             test_table = ht.QuadraticProbe(test_length, hf.h_ascii)
             test_table.add(test_key, test_value)
-            self.assertEqual((test_key, test_value), test_table.T[hf.h_ascii(test_key, test_length)])
-            self.assertEqual(test_value, test_table.search(test_key))
+            self.assertEqual((test_key,
+                              test_value),
+                             test_table.T[hf.h_ascii(test_key, test_length)])
+            self.assertEqual(test_value,
+                             test_table.search(test_key))
 
     def test_quadratic_probe_rolling_variable_add_search(self):
         for i in range(100):
@@ -223,7 +258,8 @@ class TestVariableAdditionSearchQP(unittest.TestCase):
                 test_key += letter
             test_table = ht.QuadraticProbe(test_length, hf.h_rolling)
             test_table.add(test_key, test_value)
-            self.assertEqual((test_key, test_value), test_table.T[hf.h_rolling(test_key, test_length)])
+            self.assertEqual((test_key, test_value),
+                             test_table.T[hf.h_rolling(test_key, test_length)])
             self.assertEqual(test_value, test_table.search(test_key))
 
     def test_quadratic_probe_ascii_collision(self):
@@ -238,9 +274,11 @@ class TestVariableAdditionSearchQP(unittest.TestCase):
             test_table.add(test_key, test_value2)
             test_table.add(test_key, test_value3)
             self.assertEqual(test_value1, test_table.search(test_key))
-            self.assertEqual((test_key, test_value2),
-                             test_table.T[(hf.h_ascii(test_key, test_length) + 1) % test_length])
-            self.assertEqual((test_key, test_value3), test_table.T[(hf.h_ascii(test_key, test_length) + 4) % test_length])
+            self.assertEqual((test_key, test_value2), test_table.T[(hf.h_ascii(
+                test_key, test_length) + 1) % test_length])
+            self.assertEqual((test_key, test_value3),
+                             test_table.T[(hf.h_ascii(
+                                 test_key, test_length) + 4) % test_length])
 
     def test_quadratic_probe_rolling_collision(self):
         for i in range(100):
@@ -254,10 +292,13 @@ class TestVariableAdditionSearchQP(unittest.TestCase):
             test_table.add(test_key, test_value2)
             test_table.add(test_key, test_value3)
             self.assertEqual(test_value1, test_table.search(test_key))
-            self.assertEqual((test_key, test_value2),
-                             test_table.T[(hf.h_rolling(test_key, test_length) + 1) % test_length])
-            self.assertEqual((test_key, test_value3),
-                             test_table.T[(hf.h_rolling(test_key, test_length) + 4) % test_length])
+            self.assertEqual((
+                test_key, test_value2), test_table.T[
+                (hf.h_rolling(test_key, test_length) + 1) % test_length])
+            self.assertEqual((
+                test_key, test_value3), test_table.T[
+                (hf.h_rolling(test_key, test_length) + 4) % test_length])
+
 
 if __name__ == '__main__':
     unittest.main()

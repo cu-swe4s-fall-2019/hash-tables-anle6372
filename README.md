@@ -211,13 +211,86 @@ Discussion:
 We can see that that ascii function returns linear patterns when given random words, the other two output very random hashes. Given non-random inputs, however, both ascii methods output predictable patterns. The rolling function is far superior given non-random strings.
 
 
+    2. Created plots for visulaization of insert and search times of different resolution strategies
+    
+        Using random word inputs:
+
+            Linear Probe
+```
+bash benchmark.sh
+```
 
 ```
 for M in $( seq  1000 1000 10000 ); do
-    python hash_table.py 10000 rolling linear rand_words.txt $M >  rolling_linear_rand.$M.txt
+    python hash_tables.py --table_size 10000 --hash_alg rolling --res_strat linear --input_file rand_words.txt --num_keys $M >  rolling_linear_rand.$M.txt
 done
 
-grep insert rolling_linear_rand.*.txt | cut -d " " -f2,3 | python scatter.py rolling_insert_time.png "Load factor" "Insert time"
+grep insert rolling_linear_rand.*.txt | cut -d " " -f2,3 | python scatter.py --output_file_name linear_insert_time.png --xlabel "Load factor" --ylabel "Insert time"
+
+(for M in $( seq  1000 1000 10000 ); do
+    load_factor=$(bc -l <<< "$M/10000")
+    echo -n "$load_factor "
+    grep search rolling_linear_rand.$M.txt | cut -d " " -f2 | python mean.py
+done) | python scatter.py --output_file_name linear_search_time.png --xlabel "Load factor" --ylabel "Search time"
 ```
 
-![](rolling_insert_time.png)
+Linear Probe Insert
+![](linear_insert_time.png)
+
+Linear Probe Search
+![](linear_search_time.png)
+
+            Chained Hash
+```
+bash benchmark.sh
+```
+
+```
+for M in $( seq  1000 1000 10000 ); do
+    python hash_tables.py --table_size 10000 --hash_alg rolling --res_strat chain --input_file rand_words.txt --num_keys $M >  rolling_chain_rand.$M.txt
+done
+
+grep insert rolling_chain_rand.*.txt | cut -d " " -f2,3 | python scatter.py --output_file_name chain_insert_time.png --xlabel "Load factor" --ylabel "Insert time"
+
+(for M in $( seq  1000 1000 10000 ); do
+    load_factor=$(bc -l <<< "$M/10000")
+    echo -n "$load_factor "
+    grep search rolling_chain_rand.$M.txt | cut -d " " -f2 | python mean.py
+done) | python scatter.py --output_file_name chain_search_time.png --xlabel "Load factor" --ylabel "Search time"
+```
+
+Chained Hash Insert
+![](chain_insert_time.png)
+
+Chained Hash Search
+![](chain_search_time.png)
+
+            Quadratic Probe
+```
+bash benchmark.sh
+```
+
+```
+for M in $( seq  1000 1000 10000 ); do
+    python hash_tables.py --table_size 10000 --hash_alg rolling --res_strat quadratic --input_file rand_words.txt --num_keys $M >  rolling_quadratic_rand.$M.txt
+done
+
+grep insert rolling_quadratic_rand.*.txt | cut -d " " -f2,3 | python scatter.py --output_file_name quadratic_insert_time.png --xlabel "Load factor" --ylabel "Insert time"
+
+(for M in $( seq  1000 1000 10000 ); do
+    load_factor=$(bc -l <<< "$M/10000")
+    echo -n "$load_factor "
+    grep search rolling_quadratic_rand.$M.txt | cut -d " " -f2 | python mean.py
+done) | python scatter.py --output_file_name quadratic_search_time.png --xlabel "Load factor" --ylabel "Search time"
+```
+
+Quadratic Probe Insert
+![](quadratic_insert_time.png)
+
+Quadratic Probe Search
+![](quadratic_search_time.png)
+
+Discussion:
+
+It can be seen that the Linear and Quadratic Probe collision resolutions behave very similarly with relatively constant insert and search times until a load factor close to 1 is attained.
+However, the chained hash resolution strategy displays relatively constant insert and search times that varied independent of load factor.
