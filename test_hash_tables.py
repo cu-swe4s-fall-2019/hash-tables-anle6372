@@ -226,7 +226,22 @@ class TestVariableAdditionSearchCH(unittest.TestCase):
                              test_table.T[
                                  hf.h_rolling(test_key, test_length)][1])
 
-
+    # Ensures correct storage of key values
+    def test_chained_hash_rolling_variable_key_store(self):
+        letters = string.ascii_lowercase + string.ascii_uppercase
+        for i in range(10):
+            keys = []
+            test_length = rdm.randint(1, 100)
+            test_table = ht.ChainedHash(test_length, hf.h_rolling)
+            for k in range(50):
+                test_value = rdm.randint
+                test_key = ''
+                for j in range(rdm.randint(1, 100)):
+                    letter = rdm.choice(letters)
+                    test_key += letter
+                keys.append(test_key)
+                test_table.add(test_key, test_value)
+        self.assertEqual(keys, test_table.keys)
 # Testing quadratic probing functionality
 class TestVariableAdditionSearchQP(unittest.TestCase):
 
