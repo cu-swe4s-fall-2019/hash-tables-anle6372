@@ -171,6 +171,7 @@ class ChainedHash:
         self.N = N
         self.T = [[] for i in range(N)]
         self.M = 0
+        self.keys = []
         if not callable(self.hash_function) is True:
             raise TypeError('hash function must be callable')
         if not type(self.N) is int:
@@ -182,6 +183,7 @@ class ChainedHash:
         start_slot = self.hash_function(key, self.N)
         self.T[start_slot].append((key, value))
         self.M += 1
+        self.keys.append(key)
         return True
 
     def search(self, key):

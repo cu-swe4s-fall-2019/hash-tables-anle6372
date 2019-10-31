@@ -102,6 +102,7 @@
         
         Returns:
             - self.T: the hash table data object created
+            - self.keys: a list of keys stored in the hash table
         
         Functions:
             - add(self, key, value):
