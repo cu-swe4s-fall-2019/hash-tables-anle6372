@@ -242,6 +242,8 @@ class TestVariableAdditionSearchCH(unittest.TestCase):
                 keys.append(test_key)
                 test_table.add(test_key, test_value)
         self.assertEqual(keys, test_table.keys)
+
+
 # Testing quadratic probing functionality
 class TestVariableAdditionSearchQP(unittest.TestCase):
 
